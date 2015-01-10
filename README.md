@@ -73,6 +73,8 @@ The following configuration options can be used:
 
 ##Versions
 
+* v1.0.6 (January 10, 2015):
+ * Reworked forum/topic read indication from being supported by a database table to being supported by cookies.
 * v1.0.5 (August 29, 2014):
  * Module parameter dbName added.
 * v1.0.4 (July 16, 2014):

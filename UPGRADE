@@ -1,4 +1,4 @@
-﻿BBii 1.0.5
+﻿BBii 1.0.6
 ==========
 
 Copyright (c) 2013-2014, BBii - Ronald van Belzen. All rights reserved.  
@@ -54,5 +54,5 @@ All files in bbii-1.0.1.zip should be copied to replace the existing files.
 All files in bbii-1.0.2.zip should be copied to replace the existing files.
 Update database with SQL statements found in bbii/data/upgrade-to-version-1-0-2.mysql.sql
 
-## Upgrade from v1.0.2 through v1.0.4 to v1.0.5
-All files in bbii-1.0.5.zip should be copied to replace the existing files.
+## Upgrade from v1.0.2 through v1.0.5 to v1.0.6
+All files in bbii-1.0.6.zip should be copied to replace the existing files.
