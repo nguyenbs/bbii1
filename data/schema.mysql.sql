@@ -112,7 +112,7 @@ CREATE TABLE `bbii_post` (
   KEY `user_id_INDEX` (`user_id`),
   KEY `topic_id_INDEX` (`topic_id`),
   KEY `create_time_INDEX` (`create_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 CREATE TABLE `bbii_setting` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -136,8 +136,11 @@ CREATE TABLE `bbii_topic` (
   `moved` int(10) unsigned NOT NULL DEFAULT '0',
   `upvoted` smallint(6) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `forum_id_INDEX` (`forum_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ;
+  KEY `last_post_id` (`last_post_id`),
+  KEY `forum_id` (`forum_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `bbii_session` (
   `id` varchar(128) NOT NULL,

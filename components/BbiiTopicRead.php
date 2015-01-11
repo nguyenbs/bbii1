@@ -19,7 +19,7 @@ class BbiiTopicRead implements Serializable {
 		$this->data = array();
 		$this->data['topics'] = $this->topics;
 		$serialized = serialize($this->data);
-		return gzencode($serialized);
+		return gzencode($serialized, 9);
 	}
 	
 	public function unserialize($data) {

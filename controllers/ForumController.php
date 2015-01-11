@@ -66,9 +66,16 @@ class ForumController extends BbiiController {
 	
 	public function actionMarkAllRead() {
 		$object = new BbiiTopicRead;
-		$topics = BbiiTopic::model()->findAll();
-		foreach($topics as $topic) {
-			$object->setRead($topic->id, $topic->last_post_id);
+		$criteria = new CDbCriteria;
+		$criteria->limit = 100;
+		$criteria->order = 'last_post_id DESC';
+		$forums = BbiiForum::model()->forum()->findAll();
+		foreach($forums as $forum) {
+			$topics = BbiiTopic::model()->findAll($criteria);
+			$criteria->condition = 'forum_id = ' . $forum->id;
+			foreach($topics as $topic) {
+				$object->setRead($topic->id, $topic->last_post_id);
+			}
 		}
 		$cookie = new CHttpCookie('bbiiRead', $object->serialize());
 		$cookie->expire = time() + (60*60*24*28);
