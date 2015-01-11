@@ -65,18 +65,15 @@ class ForumController extends BbiiController {
 	}
 	
 	public function actionMarkAllRead() {
+		$object = new BbiiTopicRead;
 		$topics = BbiiTopic::model()->findAll();
 		foreach($topics as $topic) {
-			$topicLog = BbiiLogTopic::model()->findByPk(array('member_id'=>Yii::app()->user->id, 'topic_id'=>$topic->id));
-			if($topicLog === null) {
-				$topicLog = new BbiiLogTopic;
-				$topicLog->member_id = Yii::app()->user->id;
-				$topicLog->topic_id = $topic->id;
-				$topicLog->forum_id = $topic->forum_id;
-			}
-			$topicLog->last_post_id = $topic->last_post_id;
-			$topicLog->save();
+			$object->setRead($topic->id, $topic->last_post_id);
 		}
+		$cookie = new CHttpCookie('bbiiRead', $object->serialize());
+		$cookie->expire = time() + (60*60*24*28);
+		$cookie->path = Yii::app()->createUrl($this->module->id);
+		Yii::app()->request->cookies['bbiiRead'] = $cookie;
 		$this->redirect(array('index'));
 	}
 	
