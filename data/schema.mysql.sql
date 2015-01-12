@@ -141,6 +141,11 @@ CREATE TABLE `bbii_topic` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `bbii_topic_read` (
+  `user_id` int(10) unsigned NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `bbii_session` (
   `id` varchar(128) NOT NULL,

@@ -56,3 +56,4 @@ Update database with SQL statements found in bbii/data/upgrade-to-version-1-0-2.
 
 ## Upgrade from v1.0.2 through v1.0.5 to v1.0.6
 All files in bbii-1.0.6.zip should be copied to replace the existing files.
+Update database with SQL statements found in bbii/data/upgrade-to-version-1-0-6.mysql.sql

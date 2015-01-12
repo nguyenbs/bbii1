@@ -65,23 +65,28 @@ class ForumController extends BbiiController {
 	}
 	
 	public function actionMarkAllRead() {
-		$object = new BbiiTopicRead;
-		$criteria = new CDbCriteria;
-		$criteria->limit = 100;
-		$criteria->order = 'last_post_id DESC';
-		$forums = BbiiForum::model()->forum()->findAll();
-		foreach($forums as $forum) {
-			$topics = BbiiTopic::model()->findAll($criteria);
-			$criteria->condition = 'forum_id = ' . $forum->id;
-			foreach($topics as $topic) {
-				$object->setRead($topic->id, $topic->last_post_id);
+		if(!Yii::app()->user->isGuest) {
+			$object = new BbiiTopicsRead;
+			$criteria = new CDbCriteria;
+			$criteria->limit = 100;
+			$criteria->order = 'last_post_id DESC';
+			$forums = BbiiForum::model()->forum()->findAll();
+			foreach($forums as $forum) {
+				$topics = BbiiTopic::model()->findAll($criteria);
+				$criteria->condition = 'forum_id = ' . $forum->id;
+				foreach($topics as $topic) {
+					$object->setRead($topic->id, $topic->last_post_id);
+				}
 			}
+			$model = BbiiTopicRead::model()->findByPk(Yii::app()->user->id);
+			if($model === null) {
+				$model = new BbiiTopicRead;
+				$model->user_id = Yii::app()->user->id;
+			}
+			$model->data = $object->serialize();
+			$model->save();
+			$this->redirect(array('index'));
 		}
-		$cookie = new CHttpCookie('bbiiRead', $object->serialize());
-		$cookie->expire = time() + (60*60*24*28);
-		$cookie->path = Yii::app()->createUrl($this->module->id);
-		Yii::app()->request->cookies['bbiiRead'] = $cookie;
-		$this->redirect(array('index'));
 	}
 	
 	/**
@@ -211,21 +216,18 @@ class ForumController extends BbiiController {
 		// Increase topic views
 		$topic->saveCounters(array('num_views'=>1));
 		// Register the last visit of a topic
-		if(isset(Yii::app()->request->cookies['bbiiRead'])) {
-			$object = new BbiiTopicRead;
-			$object->unserialize(Yii::app()->request->cookies['bbiiRead']->value);
+		if(!Yii::app()->user->isGuest) {
+			$object = new BbiiTopicsRead;
+			$model = BbiiTopicRead::model()->findByPk(Yii::app()->user->id);
+			if($model === null) {
+				$model = new BbiiTopicRead;
+				$model->user_id = Yii::app()->user->id;
+			} else {
+				$object->unserialize($model->data);
+			}
 			$object->setRead($topic->id, $topic->last_post_id);
-			$cookie = new CHttpCookie('bbiiRead', $object->serialize());
-			$cookie->expire = time() + (60*60*24*28);
-			$cookie->path = Yii::app()->createUrl($this->module->id);
-			Yii::app()->request->cookies['bbiiRead'] = $cookie;
-		} else {
-			$object = new BbiiTopicRead;
-			$object->setRead($topic->id, $topic->last_post_id);
-			$cookie = new CHttpCookie('bbiiRead', $object->serialize());
-			$cookie->expire = time() + (60*60*24*28);
-			$cookie->path = Yii::app()->createUrl($this->module->id);
-			Yii::app()->request->cookies['bbiiRead'] = $cookie;
+			$model->data = $object->serialize();
+			$model->save();
 		}
 
 		$this->render('topic', array(
@@ -695,24 +697,29 @@ class ForumController extends BbiiController {
 	 * @return boolean
 	 */
 	public function forumIsRead($forum_id) {
-		if(isset(Yii::app()->request->cookies['bbiiRead'])) {
-			$object = new BbiiTopicRead;
-			$object->unserialize(Yii::app()->request->cookies['bbiiRead']->value);
-			$criteria = new CDbCriteria;
-			$criteria->condition = "forum_id = $forum_id";
-			$criteria->order = 'last_post_id DESC';
-			$criteria->limit = 100;
-			$models = BbiiTopic::model()->findAll($criteria);
-			$result = true;
-			foreach($models as $topic) {
-				if($topic->last_post_id > $object->topicLastRead($topic->id)) {
-					$result = false;
-					break;
-				}
-			}
-			return $result;
-		} else {
+		if(Yii::app()->user->isGuest) {
 			return false;
+		} else {
+			$model = BbiiTopicRead::model()->findByPk(Yii::app()->user->id);
+			if($model === null) {
+				return false;
+			} else {
+				$object = new BbiiTopicsRead;
+				$object->unserialize($model->data);
+				$criteria = new CDbCriteria;
+				$criteria->condition = "forum_id = $forum_id";
+				$criteria->order = 'last_post_id DESC';
+				$criteria->limit = 100;
+				$models = BbiiTopic::model()->findAll($criteria);
+				$result = true;
+				foreach($models as $topic) {
+					if($topic->last_post_id > $object->topicLastRead($topic->id)) {
+						$result = false;
+						break;
+					}
+				}
+				return $result;
+			}
 		}
 	}
 	
@@ -722,17 +729,22 @@ class ForumController extends BbiiController {
 	 * @return boolean
 	 */
 	public function topicIsRead($topic_id) {
-		if(isset(Yii::app()->request->cookies['bbiiRead'])) {
-			$object = new BbiiTopicRead;
-			$object->unserialize(Yii::app()->request->cookies['bbiiRead']->value);
-			$lastPost = BbiiTopic::model()->cache(300)->findByPk($topic_id)->last_post_id;
-			if($lastPost > $object->topicLastRead($topic_id)) {
-				$result = false;
-			} else {
-				return true;
-			}
-		} else {
+		if(Yii::app()->user->isGuest) {
 			return false;
+		} else {
+			$model = BbiiTopicRead::model()->findByPk(Yii::app()->user->id);
+			if($model === null) {
+				return false;
+			} else {
+				$object = new BbiiTopicsRead;
+				$object->unserialize($model->data);
+				$lastPost = BbiiTopic::model()->cache(300)->findByPk($topic_id)->last_post_id;
+				if($lastPost > $object->topicLastRead($topic_id)) {
+					$result = false;
+				} else {
+					return true;
+				}
+			}
 		}
 	}
 	

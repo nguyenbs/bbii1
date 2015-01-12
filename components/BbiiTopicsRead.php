@@ -1,5 +1,5 @@
 <?php
-class BbiiTopicRead implements Serializable {
+class BbiiTopicsRead implements Serializable {
 	private $data;
 	private $topics = array();
 	
@@ -19,11 +19,10 @@ class BbiiTopicRead implements Serializable {
 		$this->data = array();
 		$this->data['topics'] = $this->topics;
 		$serialized = serialize($this->data);
-		return gzencode($serialized, 9);
+		return $serialized;
 	}
 	
 	public function unserialize($data) {
-		$data = gzdecode($data);
 		$this->data = unserialize($data);
 		$this->topics = $this->data['topics'];
     }
