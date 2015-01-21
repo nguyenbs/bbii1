@@ -69,3 +69,8 @@ BBii version 1.0.3
 BBii version 1.0.4
 ==================
 #0029  an authenticated user can update the user profile of other members.
+
+BBii version 1.0.7
+==================
+#0030  bbii/views/member/view.php typing error in Yii::t('BbiiModule.bbii', 'Forum naam').
+#0031  bbii/views/member/view.php target attributes assigned to images instead of links.

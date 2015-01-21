@@ -76,20 +76,20 @@ $df = Yii::app()->dateFormatter;
 			<th><?php echo Yii::t('BbiiModule.bbii', 'Presence on the internet'); ?></th>
 			<td>
 				<?php if($model->contact_email && $this->module->userMailColumn) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('User.png'), 'e-mail', array('title'=>Yii::t('BbiiModule.bbii', 'Contact user by e-mail'))), array('member/mail', 'id'=>$model->id)); ?>
-				<?php if(isset($model->blogger)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Blogger.png'), 'Blogger', array('title'=>'Blogger','target'=>'_blank')), $model->blogger); ?>
-				<?php if(isset($model->facebook)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Facebook.png'), 'Facebook', array('title'=>'Facebook','target'=>'_blank')), $model->facebook); ?>
-				<?php if(isset($model->flickr)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Flickr.png'), 'Flickr', array('title'=>'Flickr','target'=>'_blank')), $model->flickr); ?>
-				<?php if(isset($model->google)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Google.png'), 'Google', array('title'=>'Google','target'=>'_blank')), $model->google); ?>
-				<?php if(isset($model->linkedin)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Linkedin.png'), 'Linkedin', array('title'=>'Linkedin','target'=>'_blank')), $model->linkedin); ?>
-				<?php if(isset($model->metacafe)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Metacafe.png'), 'Metacafe', array('title'=>'Metacafe','target'=>'_blank')), $model->metacafe); ?>
-				<?php if(isset($model->myspace)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Myspace.png'), 'Myspace', array('title'=>'Myspace','target'=>'_blank')), $model->myspace); ?>
-				<?php if(isset($model->orkut)) 		echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Orkut.png'), 'Orkut', array('title'=>'Orkut','target'=>'_blank')), $model->orkut); ?>
-				<?php if(isset($model->tumblr)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Tumblr.png'), 'Tumblr', array('title'=>'Tumblr','target'=>'_blank')), $model->tumblr); ?>
-				<?php if(isset($model->twitter)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Twitter.png'), 'Twitter', array('title'=>'Twitter','target'=>'_blank')), $model->twitter); ?>
-				<?php if(isset($model->website)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Globe.png'), 'Website', array('title'=>'Website','target'=>'_blank')), $model->website); ?>
-				<?php if(isset($model->wordpress)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Wordpress.png'), 'Wordpress', array('title'=>'Wordpress','target'=>'_blank')), $model->wordpress); ?>
-				<?php if(isset($model->yahoo)) 		echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Yahoo.png'), 'Yahoo', array('title'=>'Yahoo','target'=>'_blank')), $model->yahoo); ?>
-				<?php if(isset($model->youtube)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Youtube.png'), 'Youtube', array('title'=>'Youtube','target'=>'_blank')), $model->youtube); ?>
+				<?php if(isset($model->blogger)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Blogger.png'), 'Blogger', array('title'=>'Blogger')), $model->blogger, array('target'=>'_blank')); ?>
+				<?php if(isset($model->facebook)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Facebook.png'), 'Facebook', array('title'=>'Facebook')), $model->facebook, array('target'=>'_blank')); ?>
+				<?php if(isset($model->flickr)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Flickr.png'), 'Flickr', array('title'=>'Flickr')), $model->flickr, array('target'=>'_blank')); ?>
+				<?php if(isset($model->google)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Google.png'), 'Google', array('title'=>'Google')), $model->google, array('target'=>'_blank')); ?>
+				<?php if(isset($model->linkedin)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Linkedin.png'), 'Linkedin', array('title'=>'Linkedin')), $model->linkedin, array('target'=>'_blank')); ?>
+				<?php if(isset($model->metacafe)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Metacafe.png'), 'Metacafe', array('title'=>'Metacafe')), $model->metacafe, array('target'=>'_blank')); ?>
+				<?php if(isset($model->myspace)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Myspace.png'), 'Myspace', array('title'=>'Myspace')), $model->myspace, array('target'=>'_blank')); ?>
+				<?php if(isset($model->orkut)) 		echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Orkut.png'), 'Orkut', array('title'=>'Orkut')), $model->orkut, array('target'=>'_blank')); ?>
+				<?php if(isset($model->tumblr)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Tumblr.png'), 'Tumblr', array('title'=>'Tumblr')), $model->tumblr, array('target'=>'_blank')); ?>
+				<?php if(isset($model->twitter)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Twitter.png'), 'Twitter', array('title'=>'Twitter')), $model->twitter, array('target'=>'_blank')); ?>
+				<?php if(isset($model->website)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Globe.png'), 'Website', array('title'=>'Website')), $model->website, array('target'=>'_blank')); ?>
+				<?php if(isset($model->wordpress)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Wordpress.png'), 'Wordpress', array('title'=>'Wordpress')), $model->wordpress, array('target'=>'_blank')); ?>
+				<?php if(isset($model->yahoo)) 		echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Yahoo.png'), 'Yahoo', array('title'=>'Yahoo')), $model->yahoo, array('target'=>'_blank')); ?>
+				<?php if(isset($model->youtube)) 	echo Chtml::link(CHtml::image($this->module->getRegisteredImage('Youtube.png'), 'Youtube', array('title'=>'Youtube')), $model->youtube, array('target'=>'_blank')); ?>
 			</td>
 		</tr>
 		<tr>

@@ -73,6 +73,9 @@ The following configuration options can be used:
 
 ##Versions
 
+* v1.0.7 (January 22, 2015):
+ * Russian language file added.
+ * Minor bugfixes.
 * v1.0.6 (January 15, 2015):
  * Reworked forum/topic read indication.
 * v1.0.5 (August 29, 2014):

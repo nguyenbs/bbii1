@@ -2,7 +2,7 @@
 
 class BbiiModule extends CWebModule {
 	public $defaultController = 'forum';
-	public $version = '1.0.6';
+	public $version = '1.0.7';
 	public $adminId = false;				// must be overridden to assign admin rights to user id
 	public $avatarStorage = '/avatar'; 		// directory in the webroot must exist and allow read/write access
 	public $forumTitle = 'BBii Forum';
