@@ -51,6 +51,8 @@ $item = array(
 		'id'=>'bbiiTopic',
 		'dataProvider'=>$dataProvider,
 		'itemView'=>'_topic',
+		'template'=>'{pager}{items}{pager}',
+		'pager'=>array('firstPageCssClass'=>'previous', 'lastPageCssClass'=>'next', 'firstPageLabel'=>'<<', 'lastPageLabel'=>'>>'),
 	)); ?>
 	
 	<?php echo $this->renderPartial('_forumfooter'); ?>

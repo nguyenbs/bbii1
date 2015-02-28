@@ -8,7 +8,7 @@ This module will add a fully functional forum to an existing Yii 1.1 application
 * Private messaging.
 * Moderation.
 * Search functionality.
-* Language support (message files included for Dutch and German).
+* Language support (Dutch, English, German, Russian included).
 * Time zone handling.
 * Post upvoting.
 * Polls.
@@ -73,6 +73,11 @@ The following configuration options can be used:
 
 ##Versions
 
+* v1.0.8 (February 28, 2015):
+ * Changed CListView template and pager for topics and posts.
+ * Changed paging through topic posts by adding scroll to top.
+ * Minor improvements to the base forum.css file.
+ * Minor bugfix.
 * v1.0.7 (January 22, 2015):
  * Russian language file added.
  * Minor bugfixes.

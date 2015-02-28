@@ -9,6 +9,14 @@
 	text-decoration: none;
 }
 
+#bbii-wrapper div.pager {
+	margin: 5px 0;
+}
+
+#bbii-wrapper div.pager  li.hidden{
+	display: none;
+}
+
 /* Page Header: */
 #bbii-header {
 	border-top: 3px solid #cccccc;

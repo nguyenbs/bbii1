@@ -66,6 +66,9 @@ Yii::app()->clientScript->registerScript('scrollToPost', "
 		'dataProvider'=>$dataProvider,
 		'itemView'=>'_post',
 		'viewData'=>array('postId'=>$postId),
+		'template'=>'{pager}{items}{pager}',
+		'pager'=>array('firstPageCssClass'=>'previous', 'lastPageCssClass'=>'next', 'firstPageLabel'=>'<<', 'lastPageLabel'=>'>>'),
+		'afterAjaxUpdate'=>'function(){$(window).scrollTop(0);}',
 	)); ?>
 </div>
 <div style="display:none;">

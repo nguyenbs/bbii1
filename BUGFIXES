@@ -1,7 +1,7 @@
 BBii Bugfixes
 =============
 
-Copyright (c) 2013-2014, BBii - Ronald van Belzen. All rights reserved.  
+Copyright (c) 2013-2015, BBii - Ronald van Belzen. All rights reserved.  
  - See accompanying LICENSE for license information.
 
 BBii is an extension to the Yii Framework (http://www.yiiframework.com/license/) 
@@ -74,3 +74,7 @@ BBii version 1.0.7
 ==================
 #0030  bbii/views/member/view.php typing error in Yii::t('BbiiModule.bbii', 'Forum naam').
 #0031  bbii/views/member/view.php target attributes assigned to images instead of links.
+
+BBii version 1.0.8
+==================
+#0032  controllers/ModeratorController.php error in model name BBiiPoll.
