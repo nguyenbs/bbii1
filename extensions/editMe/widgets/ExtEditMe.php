@@ -178,6 +178,11 @@ class ExtEditMe extends CInputWidget {
 	public $uiColor = '';
 	
 	/**
+	 * @var string extraPlugins of the editor user interface. The plugins can be defined comma-separated.
+	 */
+	public $plugin = '';
+	
+	/**
 	 * $var string The editor skin name. Note that it is not possible to have editors with different 
 	 * skin settings in the same page. In such case just one of the skins will be used for all editors.
 	 */
@@ -358,6 +363,8 @@ class ExtEditMe extends CInputWidget {
 		$ckeConfig['disableNativeSpellChecker'] = false;
 		// Generate "autoUpdateElement" config value
 		$ckeConfig['autoUpdateElement'] = true;
+		// Generate "extraPlugins" config value
+		$ckeConfig['extraPlugins'] = $this->plugin;
 		// Generate config values which are defined in ExtEditMe::$ckeConfig
 		foreach ($this -> ckeConfig as $ckeConfigName => $ckeConfigValue) {
 			$ckeConfig[$ckeConfigName] = $ckeConfigValue;

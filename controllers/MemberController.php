@@ -23,6 +23,10 @@ class MemberController extends BbiiController {
 				'actions'=>array('index','mail','members','view','update'),
 				'users'=>array('@'),
 			),
+			array('allow',
+				'actions'=>array('watch'),
+				'users'=>array('*'),
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -93,6 +97,18 @@ class MemberController extends BbiiController {
 	}
 	
 	public function actionView($id) {
+		if(isset($_GET['unwatch']) && ($this->isModerator() || $id == Yii::app()->user->id)) {
+			$object = new BbiiTopicsRead;
+			$read = BbiiTopicRead::model()->findByPk($id);
+			if($read !== null) {
+				$object->unserialize($read->data);
+				foreach($_GET['unwatch'] as $topicId => $val) {
+					$object->unsetFollow($topicId);
+				}
+				$read->data = $object->serialize();
+				$read->save();
+			}
+		}
 		$model=$this->loadModel($id);
 		$dataProvider = new CActiveDataProvider('BbiiPost', array(
 			'criteria'=>array(
@@ -103,9 +119,30 @@ class MemberController extends BbiiController {
 			),
 			'pagination'=>false,
 		));
+		if($this->isModerator() || $id == Yii::app()->user->id) {
+			$object = new BbiiTopicsRead;
+			$read = BbiiTopicRead::model()->findByPk($id);
+			if($read === null) {
+				$in = array(0);
+			} else {
+				$object->unserialize($read->data);
+				$in = array_keys($object->getFollow());
+			}
+		} else {
+				$in = array(0);
+		}
+		$criteria = new CDbCriteria;
+		$criteria->addInCondition('id', $in);
+		$criteria->order = 'id';
+		$topicProvider = new CActiveDataProvider('BbiiTopic', array(
+			'criteria'=>$criteria,
+			'pagination'=>false,
+		));
+		
 		$this->render('view', array(
 			'model'=>$model, 
 			'dataProvider'=>$dataProvider,
+			'topicProvider'=>$topicProvider,
 		));
 	}
 	
@@ -127,11 +164,14 @@ class MemberController extends BbiiController {
 				$name = BbiiMember::model()->findByPk(Yii::app()->user->id)->member_name;
 				$name='=?UTF-8?B?'.base64_encode($name).'?=';
 				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
+				$sendto = $model->member_name . " <$to>";
 				$headers="From: $name <$from>\r\n".
+					"To: {$sendto}\r\n".
+					"Date: " . date(DATE_RFC2822) . "\r\n".
 					"Reply-To: $from\r\n".
+					"Message-ID: <" . uniqid('', true) . "@bbii.forum>\r\n".
 					"MIME-Version: 1.0\r\n".
 					"Content-type: text/html; charset=UTF-8";
-				$sendto = $model->member_name . " <$to>";
 
 				mail($sendto,$subject,$model->body,$headers);
 				Yii::app()->user->setFlash('notice',Yii::t('BbiiModule.bbii','You have sent an e-mail to {member_name}.', array('{member_name}'=>$model->member_name)));
@@ -163,6 +203,27 @@ class MemberController extends BbiiController {
 		Yii::app()->end();
 	}
 	
+	public function actionWatch() {
+		if($this->module->dbName === false) {
+			$db = 'db';
+		} else {
+			$db = $this->module->dbName;
+		}
+		$class = new $this->module->userClass;
+		$table = $class::model()->tableName();
+		$obj = new BbiiWatcherMail(
+			$this->module->forumTitle,
+			$db,
+			$this->module->userClass,
+			$table,
+			$this->module->userIdColumn,
+			$this->module->userNameColumn,
+			$this->module->userMailColumn
+		);
+		$obj->processWatchers();
+		echo 'Complete';
+		Yii::app()->end();
+	}
 	
 	public function loadModel($id) {
 		$model=BbiiMember::model()->findByPk($id);

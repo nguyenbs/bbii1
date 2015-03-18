@@ -69,10 +69,13 @@ The following configuration options can be used:
 
 ##Embedded Extensions
 
-* [editMe](http://www.yiiframework.com/extension/editme)
+* [editMe](http://www.yiiframework.com/extension/editme) (Support for editMe has discontinued. BBii contains its own version of editMe that uses CKEditor 4.4.0)
 
 ##Versions
 
+* v1.0.9 (March 18, 2015)
+ * Added topic subscription.
+ * CKEditor plugin support added to editMe extension.
 * v1.0.8 (February 28, 2015):
  * Changed CListView template and pager for topics and posts.
  * Changed paging through topic posts by adding scroll to top.

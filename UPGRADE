@@ -1,4 +1,4 @@
-﻿BBii 1.0.8
+﻿BBii 1.0.9
 ==========
 
 Copyright (c) 2013-2015, BBii - Ronald van Belzen. All rights reserved.  
@@ -47,7 +47,7 @@ is added needs to be cleared.
 For upgrade to version 0.95 be aware that the module parameter cssFile no longer 
 exists.
 
-## Upgrade from v0.95 till v1.0.0 to v1.0.1
+## Upgrade from v0.95 through v1.0.0 to v1.0.1
 All files in bbii-1.0.1.zip should be copied to replace the existing files.
 
 ## Upgrade from v1.0.1 to v1.0.2
@@ -58,5 +58,5 @@ Update database with SQL statements found in bbii/data/upgrade-to-version-1-0-2.
 All files in bbii-1.0.6.zip should be copied to replace the existing files.
 Update database with SQL statements found in bbii/data/upgrade-to-version-1-0-6.mysql.sql
 
-## Upgrade from v1.0.6 through 1.0.7 to 1.0.8
-All files in bbii-1.0.8.zip should be copied to replace the existing files.
+## Upgrade from v1.0.6 through 1.0.8 to 1.0.9
+All files in bbii-1.0.9.zip should be copied to replace the existing files.

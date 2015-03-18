@@ -449,6 +449,18 @@
 	font-weight: bold;
 }
 
+.bbii-watch-button {
+	background-color: #cccccc;
+	border: 1px solid #888888;
+	border-radius: 3px;
+	color: #444444;
+	cursor: pointer;
+	margin: 3px;
+	padding: 3px 5px 3px 5px;
+	font-weight: bold;
+	float: left;
+}
+
 button.bbii-button-right {
 	background-color: #cccccc;
 	border: 1px solid #888888;
@@ -1032,6 +1044,10 @@ button.bbii-button-right {
 	background: url(../../images/spinner.gif) no-repeat center;
 }
 
+table {
+	margin-bottom: 0.1em;
+}
+
 table li {
 	margin: 1px;
 }
@@ -1058,7 +1074,7 @@ td.subtitle {
 }
 
 td {
-	padding-right: 0;
+	padding-right: 5px;
 }
 
 table.profile {

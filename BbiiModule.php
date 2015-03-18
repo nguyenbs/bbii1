@@ -2,22 +2,23 @@
 
 class BbiiModule extends CWebModule {
 	public $defaultController = 'forum';
-	public $version = '1.0.8';
-	public $adminId = false;				// must be overridden to assign admin rights to user id
-	public $avatarStorage = '/avatar'; 		// directory in the webroot must exist and allow read/write access
-	public $forumTitle = 'BBii Forum';
-	public $userClass = 'User';
-	public $userIdColumn = 'id';
-	public $userNameColumn = 'username';
-	public $userMailColumn = false;
-	public $dbName = false;
-	public $topicsPerPage = 20;
-	public $postsPerPage = 20;
+	public $version 		= '1.0.9';
+	public $adminId 		= false;			// must be overridden to assign admin rights to user id
+	public $avatarStorage 	= '/avatar'; 		// directory in the webroot must exist and allow read/write access
+	public $forumTitle 		= 'BBii Forum';
+	public $userClass 		= 'User';
+	public $userIdColumn 	= 'id';
+	public $userNameColumn 	= 'username';
+	public $userMailColumn 	= false;
+	public $dbName 			= false;
+	public $allowTopicSub 	= false;
+	public $topicsPerPage 	= 20;
+	public $postsPerPage 	= 20;
 	public $purifierOptions = array(
 		'HTML.SafeIframe'=>true,
 		'URI.SafeIframeRegexp'=>'%^http://(www.youtube.com/embed/|player.vimeo.com/video/)%',
 	);
-	public $editorToolbar = array(
+	public $editorToolbar 	= array(
 		array('Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo'),
 		array('Find','Replace','-','SelectAll'),
 		array('Bold', 'Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat'),
@@ -30,11 +31,11 @@ class BbiiModule extends CWebModule {
 		array('HorizontalRule','Smiley','SpecialChar','-','ShowBlocks'),
 		array('Link', 'Unlink','Image','Iframe')
 	);
-	public $editorSkin = 'moono';
-	public $editorUIColor = '';
+	public $editorSkin 		= 'moono';
+	public $editorUIColor 	= '';
 	public $editorContentsCss = array();
-	public $juiTheme = 'base';
-	public $bbiiTheme = 'base';
+	public $juiTheme 		= 'base';
+	public $bbiiTheme 		= 'base';
 	
 	private $_assetsUrl;
 	

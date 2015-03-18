@@ -1,7 +1,8 @@
 <?php
-/* @var $this ForumController */
+/* @var $this MemberController */
 /* @var $model BbiiMember */
-/* @var $dataProvider CActiveDataProvider */
+/* @var $dataProvider CActiveDataProvider BbiiPost */
+/* @var $topicProvider CActiveDataProvider BbiiTopic*/
 
 $this->bbii_breadcrumbs=array(
 	Yii::t('BbiiModule.bbii', 'Forum')=>array('forum/index'),
@@ -105,7 +106,8 @@ $df = Yii::app()->dateFormatter;
 			'itemView'=>'_post',
 			'summaryText'=>false,
 		));
-
 		?>
+	</td></tr><tr><td colspan="2">
+		<?php if($topicProvider->getItemCount()) { $this->renderPartial('_watch', array('topicProvider'=>$topicProvider)); } ?>
 	</td></tr></table>
 </div>

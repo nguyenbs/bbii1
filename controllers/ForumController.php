@@ -24,7 +24,7 @@ class ForumController extends BbiiController {
 	{
 		return array(
 			array('allow',
-				'actions'=>array('createTopic', 'quote', 'reply', 'vote', 'displayVote', 'editPoll', 'updatePoll', 'update', 'upvote', 'markAllRead'),
+				'actions'=>array('createTopic', 'quote', 'reply', 'vote', 'displayVote', 'editPoll', 'updatePoll', 'update', 'upvote', 'markAllRead', 'watch', 'unwatch'),
 				'users'=>array('@'),
 			),
 			array('allow',
@@ -226,6 +226,9 @@ class ForumController extends BbiiController {
 				$object->unserialize($model->data);
 			}
 			$object->setRead($topic->id, $topic->last_post_id);
+			if($object->follows($topic->id)) {
+				$object->setFollow($topic->id, $topic->last_post_id);
+			}
 			$model->data = $object->serialize();
 			$model->save();
 		}
@@ -676,7 +679,48 @@ class ForumController extends BbiiController {
 		echo json_encode($json);
 		Yii::app()->end();
 	}
-
+	
+	/**
+	 * Handle Ajax call to register watching a topic by a user
+	 */
+	public function actionWatch() {
+		$json = array('success'=>'yes');
+		if(isset($_POST['topicId']) && isset($_POST['postId'])) {
+			$object = new BbiiTopicsRead;
+			$model = BbiiTopicRead::model()->findByPk(Yii::app()->user->id);
+			if($model === null) {
+				$model = new BbiiTopicRead;
+				$model->user_id = Yii::app()->user->id;
+			} else {
+				$object->unserialize($model->data);
+			}
+			$object->setFollow($_POST['topicId'], $_POST['postId']);
+			$model->data = $object->serialize();
+			$model->save();
+		}
+		echo json_encode($json);
+		Yii::app()->end();
+	}
+	
+	/**
+	 * Handle Ajax call to register unwatching a topic by a user
+	 */
+	public function actionUnwatch() {
+		$json = array('success'=>'yes');
+		if(isset($_POST['topicId'])) {
+			$object = new BbiiTopicsRead;
+			$model = BbiiTopicRead::model()->findByPk(Yii::app()->user->id);
+			if($model !== null) {
+				$object->unserialize($model->data);
+				$object->unsetFollow($_POST['topicId']);
+				$model->data = $object->serialize();
+				$model->save();
+			}
+		}
+		echo json_encode($json);
+		Yii::app()->end();
+	}
+	
 	/**
 	 * This is the action to handle external exceptions.
 	 */
@@ -806,5 +850,15 @@ class ForumController extends BbiiController {
 			$member->group_id = $newGroup->id;
 			$member->save();
 		}
+	}
+	
+	public function isWatching($topic_id) {
+		$object = new BbiiTopicsRead;
+		$model = BbiiTopicRead::model()->findByPk(Yii::app()->user->id);
+		if($model === null) {
+			return false;
+		}
+		$object->unserialize($model->data);
+		return $object->follows($topic_id);
 	}
 }

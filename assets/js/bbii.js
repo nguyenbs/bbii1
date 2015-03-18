@@ -207,5 +207,15 @@ var BBii = {
 				$("#dlgTopicForm").dialog('close');
 			}
 		}, 'json');
+	},
+	watchTopic: function(topicId, postId, url) {
+		$.post(url, {'topicId': topicId, 'postId': postId}, function(data) {
+			if(data.success == 'yes') {
+				$('#watch').toggle();
+				$('#unwatch').toggle();
+			} else {
+				
+			}
+		}, 'json');
 	}
 }
