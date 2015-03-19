@@ -10,7 +10,7 @@ $this->widget('zii.widgets.CListView', array(
 	'summaryText'=>false,
 ));
 echo '<div style="text-align:right;width:50%">';
-echo CHtml::button(Yii::t('bbii', 'Vote'), array('onclick'=>'vote("' . $this->createAbsoluteUrl('forum/vote') . '");'));
+echo CHtml::button(Yii::t('BbiiModule.bbii', 'Vote'), array('onclick'=>'vote("' . $this->createAbsoluteUrl('forum/vote') . '");'));
 echo '</div>';
 echo CHtml::endForm();
 ?>
