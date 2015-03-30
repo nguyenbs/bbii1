@@ -28,7 +28,11 @@ $item = array(
 				'name'=>'sendfrom',
 				'value'=>'$data->sender->member_name'
 			),
-			'subject',
+            array(
+                'name' => 'subject',
+                'type'  => 'raw',
+                'value'=> 'CHtml::tag("a",array("href"=>$data->id,"class" => "view"),$data->subject)',
+            ),
 			array(
 				'name' => 'create_time',
 				'value' => 'DateTimeCalculation::long($data->create_time)',
