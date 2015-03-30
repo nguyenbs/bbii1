@@ -15,10 +15,13 @@ $members = BbiiMember::model()->present()->count();
 					foreach($members as $member) {
 						echo CHtml::link($member->member_name, array('member/view', 'id'=>$member->id), array('style'=>'color:#'.$member->group->color)) . '&nbsp;';
 					}
-					$spiders = BbiiSpider::model()->present()->findAll();
-					foreach($spiders as $spider) {
-						echo CHtml::link($spider->name, $spider->url, array('class'=>'spider','target'=>'_new')) . '&nbsp;';
-					}
+                    if((bool)Yii::app()->user->isSuperuser)
+                    {
+                        $spiders = BbiiSpider::model()->present()->findAll();
+                        foreach($spiders as $spider) {
+                            echo CHtml::link($spider->name, $spider->url, array('class'=>'spider','target'=>'_new')) . ' ';
+                        }
+                    }
 				?>
 				<?php echo Yii::t('BbiiModule.bbii','({hidden} anonymous member(s))', array('{hidden}'=>BbiiMember::model()->hidden()->present()->count())); ?>
 			</div>
